@@ -59,7 +59,7 @@ contract ViteBet{
 
     function calcWinAmount(uint256 betAmount, uint256 length) public pure returns(uint256) {
         uint256 bonus = betAmount * 6 / length;
-        return (bonus - betAmount) * 5 / 100;
+        return betAmount + (bonus - betAmount) * 95 / 100;
     }
 
 }
