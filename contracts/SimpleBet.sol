@@ -11,13 +11,12 @@ contract ViteBet{
         owner = msg.sender;
     }
 
-    onMessage Transfer() payable {
+    onMessage () payable {
     }
 
-    onMessage DrawMoney() {
+    onMessage DrawMoney(uint256 amount) {
         require(owner == msg.sender);
-        uint256 amount = address(this).balance(token);
-        require(amount > 0);
+        require(amount <= address(this).balance(token));
         msg.sender.transfer(token, amount);
     }
 
@@ -29,7 +28,7 @@ contract ViteBet{
         require(rollTargets > 0 && rollTargets < 100000);
 
         bytes32 randomhash = blockhash(block.number);
-        uint64 rollNum = uint64(uint256(randomhash) % 6 + 1);
+        uint64 rollNum = uint64(uint256((randomhash<<232)>>232) % 6 + 1);
         bool winBet = false;
         uint64 count = 0;
         uint256 tempRollTargets = rollTargets;
