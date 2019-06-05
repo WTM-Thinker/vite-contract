@@ -25,8 +25,8 @@ contract ViteBet{
     onMessage () payable {
     }
 
-    // 配置token赌注上下限
-    // 配置抽成比例（0到20）
+    // Configure the upper and lower limits of the token bet
+    // Configure the draw ratio (0 to 20)
     onMessage configBetLimit(uint256 ll, uint256 ul, uint256 tp) {
         require(owner == msg.sender);
         require(ll > 0 && ll <= ul);
@@ -44,12 +44,12 @@ contract ViteBet{
         msg.sender.transfer(msg.tokenid, amount);
     }
 
-    // 获取token的上下限和费率
+    // Get the upper and lower limits of the token and the rate
     getter getBetLimit(tokenId token) returns(uint256 ll, uint256 ul, uint256 tipPer) {
         return (tokenMap[token].lowerLimit, tokenMap[token].upperLimit, tokenMap[token].tipPer);
     }
 
-    // 获取token的列表
+    // Get the token list
     getter getTokenList() returns(tokenId[] memory) {
         return tokens;
     }
